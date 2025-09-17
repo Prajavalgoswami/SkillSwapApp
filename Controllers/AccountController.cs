@@ -26,7 +26,7 @@ namespace SkillSwapApp.Controllers
             {
                 bool result = _accountRepository.Register(model);
                 if (result)
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
 
                 ModelState.AddModelError("", "Registration failed.");
             }
@@ -39,7 +39,7 @@ namespace SkillSwapApp.Controllers
             return View();
         }
 
-        [HttpPost]
+       
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
@@ -55,7 +55,8 @@ namespace SkillSwapApp.Controllers
                 // 2️⃣ Try to login if user exists
                 bool result = _accountRepository.Login(model);
                 if (result)
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
+
 
                 // 3️⃣ Wrong password
                 ModelState.AddModelError("", "Invalid password. Please try again.");

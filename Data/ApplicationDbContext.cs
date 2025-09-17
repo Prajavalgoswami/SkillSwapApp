@@ -11,8 +11,9 @@ namespace SkillSwapApp.Data
         {
         }
 
-        public DbSet<ApplicationUser> Users { get; set; }
+        //public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<SwapRequest> SwapRequests { get; set; }
 
     }
 }

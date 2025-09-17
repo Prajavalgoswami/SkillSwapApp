@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SkillSwapApp.Models;
 
 namespace SkillSwapApp.Repositories
@@ -10,5 +11,6 @@ namespace SkillSwapApp.Repositories
         void AddSkill(Skill skill);
         void UpdateSkill(Skill skill);
         void DeleteSkill(int id);
+        //Task<IEnumerable<Skill>> GetSkillsByUserIdAsync(string id);
     }
 }
