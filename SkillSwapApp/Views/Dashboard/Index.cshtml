@@ -1,0 +1,177 @@
+﻿@model SkillSwapApp.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "My Dashboard";
+}
+
+<h2>Welcome, @Model.User.FullName</h2>
+
+<!-- 🔹 Profile Section -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h4>My Profile</h4>
+        <p><strong>Email:</strong> @Model.User.Email</p>
+        <p><strong>Offers:</strong> @Model.User.OfferedSkill</p>
+        <p><strong>Needs:</strong> @Model.User.NeededSkill</p>
+        <a class="btn btn-primary" href="/Account/Edit">Edit Profile</a>
+    </div>
+</div>
+
+<!-- 🔹 My Skills -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h4>My Skills</h4>
+        <a class="btn btn-success mb-2" href="/Skill/Create">Add New Skill</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Skill</th>
+                    <th>Level</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var skill in Model.Skills)
+                {
+                    <tr>
+                        <td>@skill.Name</td>
+                        <td>@skill.Level</td>
+                        <td>
+                            <a href="/Skill/Edit/@skill.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="/Skill/Delete/@skill.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 🔹 Other Users -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h4>Available Users for Skill Swap</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Offers</th>
+                    <th>Needs</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var otherUser in Model.OtherUsers)
+                {
+                    <tr>
+                        <td>@otherUser.FullName</td>
+                        <td>@otherUser.OfferedSkill</td>
+                        <td>@otherUser.NeededSkill</td>
+                        <td>
+                            <a asp-action="RequestSwap"
+                               asp-route-userId="@otherUser.Id"
+                               class="btn btn-primary btn-sm">
+                                Request Swap
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 🔹 Incoming Requests -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h4>Incoming Swap Requests</h4>
+        @if (Model.IncomingRequests.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>Offers</th>
+                        <th>Needs</th>
+                        <th>Status / Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var req in Model.IncomingRequests)
+                    {
+                        <tr>
+                            <td>@req.FromUser.FullName</td>
+                            <td>@req.FromUser.OfferedSkill</td>
+                            <td>@req.FromUser.NeededSkill</td>
+                            <td>
+                                @if (req.Status == "Pending")
+                                {
+                                    <a asp-action="AcceptRequest" asp-route-requestId="@req.Id" class="btn btn-success btn-sm">Accept</a>
+                                    <a asp-action="DeclineRequest" asp-route-requestId="@req.Id" class="btn btn-danger btn-sm">Decline</a>
+                                }
+                                else if (req.Status == "Accepted")
+                                {
+                                    <span class="badge bg-success">Done</span>
+                                    <a asp-controller="Chat" asp-action="Chat" asp-route-userId="@req.FromUserId" class="btn btn-primary btn-sm">Chat</a>
+                                }
+                                else if (req.Status == "Declined")
+                                {
+                                    <span class="badge bg-secondary">Declined</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No incoming requests.</p>
+        }
+    </div>
+</div>
+
+<!-- 🔹 Sent Requests -->
+<div class="card">
+    <div class="card-body">
+        <h4>Sent Swap Requests</h4>
+        @if (Model.SentRequests.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>To</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var req in Model.SentRequests)
+                    {
+                        <tr>
+                            <td>@req.ToUser.FullName</td>
+                            <td>@req.Status</td>
+                            <td>
+                                @if (req.Status == "Accepted")
+                                {
+                                    <a asp-controller="Chat" asp-action="Chat" asp-route-userId="@req.ToUserId" class="btn btn-primary btn-sm">Chat</a>
+                                }
+                                else if (req.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning">Waiting...</span>
+                                }
+                                else if (req.Status == "Declined")
+                                {
+                                    <span class="badge bg-secondary">Declined</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No sent requests.</p>
+        }
+    </div>
+</div>

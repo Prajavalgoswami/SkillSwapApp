@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model SkillSwapApp.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>Edit Your Profile</h2>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OfferedSkill"></label>
+        <input asp-for="OfferedSkill" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NeededSkill"></label>
+        <input asp-for="NeededSkill" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
