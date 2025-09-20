@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36429.23 d17.14
+VisualStudioVersion = 17.14.36429.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSwapApp", "SkillSwapApp\SkillSwapApp.csproj", "{A4B7F851-94DB-4AE9-8100-F21BCCD76A6A}"
 EndProject
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EDAAB968-BA4C-4A3D-BEC7-FD1E889AD39E}
+		SolutionGuid = {673C6ECF-44E8-4F16-B62B-2A6D07B49DAA}
 	EndGlobalSection
 EndGlobal
